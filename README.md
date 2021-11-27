@@ -1,3 +1,6 @@
+## Django gRPC authentication service
+___
+
 #### STEP 1: Install packages
 ```pip install -r requirements.txt```
 #### STEP 2: Make migrations and migrate
