@@ -1,11 +1,13 @@
+import datetime
+
+import grpc
+import jwt
 from django_grpc_framework import generics
 
-import auth_pb2
-import grpc
-
-import book_pb2
-from account.models import Book, User, generate_token
+from account.models import Book, User
 from account.serializers import UserProtoSerializer, BookProtoSerializer, LoginUserPairSerializer
+from proto import auth_pb2
+from quickstart.settings import TOKEN_EXPIRATION, JWT_SECRET
 
 
 class UserService(generics.ModelService):
@@ -20,6 +22,18 @@ class BookService(generics.ModelService):
 
     def Retrieve(self, request, context):
         print(request)
+
+
+def generate_token(user):
+    user_info = {
+        'username': user.username,
+        'email': user.email,
+        'user_id': user.id
+    }
+    return jwt.encode({
+        'user_info': user_info,
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=TOKEN_EXPIRATION)
+    }, JWT_SECRET, algorithm='HS256')
 
 
 class LoginService(generics.ModelService):
@@ -41,5 +55,4 @@ class LoginService(generics.ModelService):
             else:
                 return grpc.StatusCode.UNAUTHENTICATED
         except Exception as e:
-            print(e)
             return grpc.StatusCode.NOT_FOUND

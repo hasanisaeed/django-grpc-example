@@ -1,7 +1,6 @@
 from django_grpc_framework import proto_serializers
-import user_pb2
-import book_pb2
 from account.models import Book, User
+from proto import book_pb2, user_pb2
 
 
 class UserProtoSerializer(proto_serializers.ModelProtoSerializer):

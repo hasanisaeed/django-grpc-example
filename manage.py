@@ -20,6 +20,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-# python manage.py generateproto --model django.contrib.auth.models.User --fields id,  --file account.proto

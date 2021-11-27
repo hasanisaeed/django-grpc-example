@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import auth_pb2 as auth__pb2
+from proto import auth_pb2 as proto_dot_auth__pb2
 
 
 class AuthenticationStub(object):
@@ -15,10 +15,10 @@ class AuthenticationStub(object):
             channel: A grpc.Channel.
         """
         self.Login = channel.unary_unary(
-            '/authentication.Authentication/Login',
-            request_serializer=auth__pb2.LoginRequest.SerializeToString,
-            response_deserializer=auth__pb2.LoginResponse.FromString,
-        )
+                '/authentication.Authentication/Login',
+                request_serializer=proto_dot_auth__pb2.LoginRequest.SerializeToString,
+                response_deserializer=proto_dot_auth__pb2.LoginResponse.FromString,
+                )
 
 
 class AuthenticationServicer(object):
@@ -33,34 +33,34 @@ class AuthenticationServicer(object):
 
 def add_AuthenticationServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'Login': grpc.unary_unary_rpc_method_handler(
-            servicer.Login,
-            request_deserializer=auth__pb2.LoginRequest.FromString,
-            response_serializer=auth__pb2.LoginResponse.SerializeToString,
-        ),
+            'Login': grpc.unary_unary_rpc_method_handler(
+                    servicer.Login,
+                    request_deserializer=proto_dot_auth__pb2.LoginRequest.FromString,
+                    response_serializer=proto_dot_auth__pb2.LoginResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'authentication.Authentication', rpc_method_handlers)
+            'authentication.Authentication', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class Authentication(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def Login(request,
-              target,
-              options=(),
-              channel_credentials=None,
-              call_credentials=None,
-              insecure=False,
-              compression=None,
-              wait_for_ready=None,
-              timeout=None,
-              metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(request, target, '/authentication.Authentication/Login',
-                                             auth__pb2.LoginRequest.SerializeToString,
-                                             auth__pb2.LoginResponse.FromString,
-                                             options, channel_credentials,
-                                             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+            proto_dot_auth__pb2.LoginRequest.SerializeToString,
+            proto_dot_auth__pb2.LoginResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

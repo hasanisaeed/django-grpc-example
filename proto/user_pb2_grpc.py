@@ -2,9 +2,8 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import book_pb2 as book__pb2
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-import user_pb2 as user__pb2
+from proto import user_pb2 as proto_dot_user__pb2
 
 
 class UserControllerStub(object):
@@ -17,34 +16,29 @@ class UserControllerStub(object):
             channel: A grpc.Channel.
         """
         self.List = channel.unary_stream(
-                '/user.UserController/List',
-                request_serializer=user__pb2.UserListRequest.SerializeToString,
-                response_deserializer=user__pb2.User.FromString,
+                '/account.UserController/List',
+                request_serializer=proto_dot_user__pb2.UserListRequest.SerializeToString,
+                response_deserializer=proto_dot_user__pb2.User.FromString,
                 )
         self.Create = channel.unary_unary(
-                '/user.UserController/Create',
-                request_serializer=user__pb2.User.SerializeToString,
-                response_deserializer=user__pb2.User.FromString,
+                '/account.UserController/Create',
+                request_serializer=proto_dot_user__pb2.User.SerializeToString,
+                response_deserializer=proto_dot_user__pb2.User.FromString,
                 )
         self.Retrieve = channel.unary_unary(
-                '/user.UserController/Retrieve',
-                request_serializer=user__pb2.UserRetrieveRequest.SerializeToString,
-                response_deserializer=user__pb2.User.FromString,
+                '/account.UserController/Retrieve',
+                request_serializer=proto_dot_user__pb2.UserRetrieveRequest.SerializeToString,
+                response_deserializer=proto_dot_user__pb2.User.FromString,
                 )
         self.Update = channel.unary_unary(
-                '/user.UserController/Update',
-                request_serializer=user__pb2.User.SerializeToString,
-                response_deserializer=user__pb2.User.FromString,
+                '/account.UserController/Update',
+                request_serializer=proto_dot_user__pb2.User.SerializeToString,
+                response_deserializer=proto_dot_user__pb2.User.FromString,
                 )
         self.Destroy = channel.unary_unary(
-                '/user.UserController/Destroy',
-                request_serializer=user__pb2.User.SerializeToString,
+                '/account.UserController/Destroy',
+                request_serializer=proto_dot_user__pb2.User.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-                )
-        self.Books = channel.unary_stream(
-                '/user.UserController/Books',
-                request_serializer=user__pb2.User.SerializeToString,
-                response_deserializer=book__pb2.Book.FromString,
                 )
 
 
@@ -81,48 +75,37 @@ class UserControllerServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def Books(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
 
 def add_UserControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'List': grpc.unary_stream_rpc_method_handler(
                     servicer.List,
-                    request_deserializer=user__pb2.UserListRequest.FromString,
-                    response_serializer=user__pb2.User.SerializeToString,
+                    request_deserializer=proto_dot_user__pb2.UserListRequest.FromString,
+                    response_serializer=proto_dot_user__pb2.User.SerializeToString,
             ),
             'Create': grpc.unary_unary_rpc_method_handler(
                     servicer.Create,
-                    request_deserializer=user__pb2.User.FromString,
-                    response_serializer=user__pb2.User.SerializeToString,
+                    request_deserializer=proto_dot_user__pb2.User.FromString,
+                    response_serializer=proto_dot_user__pb2.User.SerializeToString,
             ),
             'Retrieve': grpc.unary_unary_rpc_method_handler(
                     servicer.Retrieve,
-                    request_deserializer=user__pb2.UserRetrieveRequest.FromString,
-                    response_serializer=user__pb2.User.SerializeToString,
+                    request_deserializer=proto_dot_user__pb2.UserRetrieveRequest.FromString,
+                    response_serializer=proto_dot_user__pb2.User.SerializeToString,
             ),
             'Update': grpc.unary_unary_rpc_method_handler(
                     servicer.Update,
-                    request_deserializer=user__pb2.User.FromString,
-                    response_serializer=user__pb2.User.SerializeToString,
+                    request_deserializer=proto_dot_user__pb2.User.FromString,
+                    response_serializer=proto_dot_user__pb2.User.SerializeToString,
             ),
             'Destroy': grpc.unary_unary_rpc_method_handler(
                     servicer.Destroy,
-                    request_deserializer=user__pb2.User.FromString,
+                    request_deserializer=proto_dot_user__pb2.User.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
-            ),
-            'Books': grpc.unary_stream_rpc_method_handler(
-                    servicer.Books,
-                    request_deserializer=user__pb2.User.FromString,
-                    response_serializer=book__pb2.Book.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'user.UserController', rpc_method_handlers)
+            'account.UserController', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
 
 
@@ -141,9 +124,9 @@ class UserController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/user.UserController/List',
-            user__pb2.UserListRequest.SerializeToString,
-            user__pb2.User.FromString,
+        return grpc.experimental.unary_stream(request, target, '/account.UserController/List',
+            proto_dot_user__pb2.UserListRequest.SerializeToString,
+            proto_dot_user__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -158,9 +141,9 @@ class UserController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/user.UserController/Create',
-            user__pb2.User.SerializeToString,
-            user__pb2.User.FromString,
+        return grpc.experimental.unary_unary(request, target, '/account.UserController/Create',
+            proto_dot_user__pb2.User.SerializeToString,
+            proto_dot_user__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -175,9 +158,9 @@ class UserController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/user.UserController/Retrieve',
-            user__pb2.UserRetrieveRequest.SerializeToString,
-            user__pb2.User.FromString,
+        return grpc.experimental.unary_unary(request, target, '/account.UserController/Retrieve',
+            proto_dot_user__pb2.UserRetrieveRequest.SerializeToString,
+            proto_dot_user__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -192,9 +175,9 @@ class UserController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/user.UserController/Update',
-            user__pb2.User.SerializeToString,
-            user__pb2.User.FromString,
+        return grpc.experimental.unary_unary(request, target, '/account.UserController/Update',
+            proto_dot_user__pb2.User.SerializeToString,
+            proto_dot_user__pb2.User.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -209,25 +192,8 @@ class UserController(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/user.UserController/Destroy',
-            user__pb2.User.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/account.UserController/Destroy',
+            proto_dot_user__pb2.User.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def Books(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_stream(request, target, '/user.UserController/Books',
-            user__pb2.User.SerializeToString,
-            book__pb2.Book.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

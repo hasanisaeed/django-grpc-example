@@ -1,9 +1,8 @@
 syntax = "proto3";
 
-package user;
+package account;
 
 import "google/protobuf/empty.proto";
-import "book.proto";
 
 service UserController {
     rpc List(UserListRequest) returns (stream User) {}
@@ -11,7 +10,6 @@ service UserController {
     rpc Retrieve(UserRetrieveRequest) returns (User) {}
     rpc Update(User) returns (User) {}
     rpc Destroy(User) returns (google.protobuf.Empty) {}
-    rpc Books(User) returns (stream book.Book){}
 }
 
 message User {

@@ -1,7 +1,5 @@
-import user_pb2_grpc
-import book_pb2_grpc
-import auth_pb2_grpc
 from account.services import UserService, BookService, LoginService
+from proto import user_pb2_grpc, book_pb2_grpc, auth_pb2_grpc
 
 urlpatterns = []
 
