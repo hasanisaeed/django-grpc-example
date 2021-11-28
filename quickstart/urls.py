@@ -1,5 +1,7 @@
 from account.services import UserService, BookService, LoginService
-from proto import user_pb2_grpc, book_pb2_grpc, auth_pb2_grpc
+from proto.auth import auth_pb2_grpc
+from proto.book import book_pb2_grpc
+from proto.user import user_pb2_grpc
 
 urlpatterns = []
 

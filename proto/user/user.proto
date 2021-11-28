@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/empty.proto";
+
+service UserController {
+    rpc List(UserListRequest) returns (stream User) {}
+    rpc Create(User) returns (User) {}
+    rpc Retrieve(UserRetrieveRequest) returns (User) {}
+    rpc Update(User) returns (User) {}
+    rpc Destroy(User) returns (google.protobuf.Empty) {}
+}
+
+message User {
+    int64 id = 1;
+    string password = 2;
+    string last_login = 3;
+    bool is_superuser = 4;
+    string username = 5;
+    string first_name = 6;
+    string last_name = 7;
+    string email = 8;
+    bool is_staff = 9;
+    bool is_active = 10;
+    string date_joined = 11;
+    repeated int32 groups = 12;
+    repeated int32 user_permissions = 13;
+}
+
+message UserListRequest {
+}
+
+message UserRetrieveRequest {
+    int64 id = 1;
+}

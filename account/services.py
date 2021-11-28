@@ -6,7 +6,7 @@ from django_grpc_framework import generics
 
 from account.models import Book, User
 from account.serializers import UserProtoSerializer, BookProtoSerializer, LoginUserPairSerializer
-from proto import auth_pb2
+from proto.auth import auth_pb2
 from quickstart.settings import TOKEN_EXPIRATION, JWT_SECRET
 
 
@@ -21,6 +21,9 @@ class BookService(generics.ModelService):
     serializer_class = BookProtoSerializer
 
     def Retrieve(self, request, context):
+        print(request)
+
+    def UserBook(self, request, context):
         print(request)
 
 
@@ -51,8 +54,8 @@ class LoginService(generics.ModelService):
             if valid:
                 token = generate_token(user)
                 response.token = token
-                return response
             else:
-                return grpc.StatusCode.UNAUTHENTICATED
+                response.status = grpc.StatusCode.UNAUTHENTICATED
+            return response
         except Exception as e:
-            return grpc.StatusCode.NOT_FOUND
+            return grpc.StatusCode.UNAUTHENTICATED
