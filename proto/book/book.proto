@@ -3,24 +3,30 @@ syntax = "proto3";
 package book;
 
 import "google/protobuf/empty.proto";
+import "proto/user/user.proto";
 
 service BookController {
-    rpc List(BookListRequest) returns (stream Book) {}
-    rpc Create(Book) returns (Book) {}
-    rpc Retrieve(BookRetrieveRequest) returns (Book) {}
-    rpc Update(Book) returns (Book) {}
-    rpc Destroy(Book) returns (google.protobuf.Empty) {}
+  rpc UserBookList(user.User) returns (UserBooksResponse){}
+  rpc List(BookListRequest) returns (stream Book) {}
+  rpc Create(Book) returns (Book) {}
+  rpc Retrieve(BookRetrieveRequest) returns (Book) {}
+  rpc Update(Book) returns (Book) {}
+  rpc Destroy(Book) returns (google.protobuf.Empty) {}
+}
+
+message UserBooksResponse{
+  repeated Book book = 1;
 }
 
 message Book {
-    int64 id = 1;
-    string name = 2;
-    int64 user = 3;
+  int64 id = 1;
+  string name = 2;
+  int64 user = 3;
 }
 
 message BookListRequest {
 }
 
 message BookRetrieveRequest {
-    int64 id = 1;
+  int64 id = 1;
 }
