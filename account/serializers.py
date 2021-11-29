@@ -1,20 +1,20 @@
 from django_grpc_framework import proto_serializers
 from account.models import Book, User
-from proto.book import book_pb2
-from proto.user import user_pb2
+# from proto.book.proto import book_pb2
+# from proto.user.proto import user_pb2
 
 
 class UserProtoSerializer(proto_serializers.ModelProtoSerializer):
     class Meta:
         model = User
-        proto_class = user_pb2.User
+        # proto_class = user_pb2.User
         fields = ['id', 'username', 'email', 'groups']
 
 
 class BookProtoSerializer(proto_serializers.ModelProtoSerializer):
     class Meta:
         model = Book
-        proto_class = book_pb2.Book
+        # proto_class = book_pb2.Book
         fields = '__all__'
 
 

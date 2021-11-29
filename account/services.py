@@ -6,7 +6,7 @@ from django_grpc_framework import generics
 
 from account.models import Book, User
 from account.serializers import UserProtoSerializer, BookProtoSerializer, LoginUserPairSerializer
-from proto.auth import auth_pb2
+# from proto.auth.proto import auth_pb2
 from quickstart.settings import TOKEN_EXPIRATION, JWT_SECRET
 
 
@@ -19,6 +19,9 @@ class BookService(generics.ModelService):
     lookup_field = 'id'
     queryset = Book.objects.all()
     serializer_class = BookProtoSerializer
+
+    def UserBookList(self, request, context):
+        print(request)
 
     def Retrieve(self, request, context):
         print(request)
@@ -46,16 +49,16 @@ class LoginService(generics.ModelService):
     def Login(request, context):
         try:
             from google.protobuf import message
-            response = auth_pb2.LoginResponse()
-            username = request.username
-            password = request.password
-            user = User.objects.get(username=username)
-            valid = user.check_password(password)
-            if valid:
-                token = generate_token(user)
-                response.token = token
-            else:
-                response.status = grpc.StatusCode.UNAUTHENTICATED
-            return response
+            # response = auth_pb2.LoginResponse()
+            # username = request.username
+            # password = request.password
+            # user = User.objects.get(username=username)
+            # valid = user.check_password(password)
+            # if valid:
+            #     token = generate_token(user)
+            #     response.token = token
+            # else:
+            #     response.status = grpc.StatusCode.UNAUTHENTICATED
+            # return response
         except Exception as e:
             return grpc.StatusCode.UNAUTHENTICATED

@@ -3,7 +3,8 @@ syntax = "proto3";
 package book;
 
 import "google/protobuf/empty.proto";
-import "proto/user/user.proto";
+//import "user.proto";
+import "proto/user.proto";
 
 service BookController {
   rpc UserBookList(user.User) returns (UserBooksResponse){}
