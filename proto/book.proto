@@ -4,10 +4,10 @@ package book;
 
 import "google/protobuf/empty.proto";
 //import "user.proto";
-import "proto/user.proto";
+////import "proto/user.proto";
 
 service BookController {
-  rpc UserBookList(user.User) returns (UserBooksResponse){}
+  rpc UserBookList(ID) returns (UserBooksResponse){}
   rpc List(BookListRequest) returns (stream Book) {}
   rpc Create(Book) returns (Book) {}
   rpc Retrieve(BookRetrieveRequest) returns (Book) {}
@@ -24,7 +24,10 @@ message Book {
   string name = 2;
   int64 user = 3;
 }
-
+message ID{
+  int64 id = 1;
+  string token = 2;
+}
 message BookListRequest {
 }
 

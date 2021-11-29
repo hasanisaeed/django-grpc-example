@@ -12,7 +12,6 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-from proto import user_pb2 as proto_dot_user__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,9 +20,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10proto/book.proto\x12\x04\x62ook\x1a\x1bgoogle/protobuf/empty.proto\x1a\x10proto/user.proto\"-\n\x11UserBooksResponse\x12\x18\n\x04\x62ook\x18\x01 \x03(\x0b\x32\n.book.Book\".\n\x04\x42ook\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04user\x18\x03 \x01(\x03\"\x11\n\x0f\x42ookListRequest\"!\n\x13\x42ookRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa4\x02\n\x0e\x42ookController\x12\x35\n\x0cUserBookList\x12\n.user.User\x1a\x17.book.UserBooksResponse\"\x00\x12-\n\x04List\x12\x15.book.BookListRequest\x1a\n.book.Book\"\x00\x30\x01\x12\"\n\x06\x43reate\x12\n.book.Book\x1a\n.book.Book\"\x00\x12\x33\n\x08Retrieve\x12\x19.book.BookRetrieveRequest\x1a\n.book.Book\"\x00\x12\"\n\x06Update\x12\n.book.Book\x1a\n.book.Book\"\x00\x12/\n\x07\x44\x65stroy\x12\n.book.Book\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
+  serialized_pb=b'\n\x10proto/book.proto\x12\x04\x62ook\x1a\x1bgoogle/protobuf/empty.proto\"-\n\x11UserBooksResponse\x12\x18\n\x04\x62ook\x18\x01 \x03(\x0b\x32\n.book.Book\".\n\x04\x42ook\x12\n\n\x02id\x18\x01 \x01(\x03\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0c\n\x04user\x18\x03 \x01(\x03\"\x1f\n\x02ID\x12\n\n\x02id\x18\x01 \x01(\x03\x12\r\n\x05token\x18\x02 \x01(\t\"\x11\n\x0f\x42ookListRequest\"!\n\x13\x42ookRetrieveRequest\x12\n\n\x02id\x18\x01 \x01(\x03\x32\xa2\x02\n\x0e\x42ookController\x12\x33\n\x0cUserBookList\x12\x08.book.ID\x1a\x17.book.UserBooksResponse\"\x00\x12-\n\x04List\x12\x15.book.BookListRequest\x1a\n.book.Book\"\x00\x30\x01\x12\"\n\x06\x43reate\x12\n.book.Book\x1a\n.book.Book\"\x00\x12\x33\n\x08Retrieve\x12\x19.book.BookRetrieveRequest\x1a\n.book.Book\"\x00\x12\"\n\x06Update\x12\n.book.Book\x1a\n.book.Book\"\x00\x12/\n\x07\x44\x65stroy\x12\n.book.Book\x1a\x16.google.protobuf.Empty\"\x00\x62\x06proto3'
   ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,proto_dot_user__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
 
 
@@ -55,8 +54,8 @@ _USERBOOKSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=73,
-  serialized_end=118,
+  serialized_start=55,
+  serialized_end=100,
 )
 
 
@@ -101,8 +100,47 @@ _BOOK = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=120,
-  serialized_end=166,
+  serialized_start=102,
+  serialized_end=148,
+)
+
+
+_ID = _descriptor.Descriptor(
+  name='ID',
+  full_name='book.ID',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='book.ID.id', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='token', full_name='book.ID.token', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=150,
+  serialized_end=181,
 )
 
 
@@ -126,8 +164,8 @@ _BOOKLISTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=168,
-  serialized_end=185,
+  serialized_start=183,
+  serialized_end=200,
 )
 
 
@@ -158,13 +196,14 @@ _BOOKRETRIEVEREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=187,
-  serialized_end=220,
+  serialized_start=202,
+  serialized_end=235,
 )
 
 _USERBOOKSRESPONSE.fields_by_name['book'].message_type = _BOOK
 DESCRIPTOR.message_types_by_name['UserBooksResponse'] = _USERBOOKSRESPONSE
 DESCRIPTOR.message_types_by_name['Book'] = _BOOK
+DESCRIPTOR.message_types_by_name['ID'] = _ID
 DESCRIPTOR.message_types_by_name['BookListRequest'] = _BOOKLISTREQUEST
 DESCRIPTOR.message_types_by_name['BookRetrieveRequest'] = _BOOKRETRIEVEREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -182,6 +221,13 @@ Book = _reflection.GeneratedProtocolMessageType('Book', (_message.Message,), {
   # @@protoc_insertion_point(class_scope:book.Book)
   })
 _sym_db.RegisterMessage(Book)
+
+ID = _reflection.GeneratedProtocolMessageType('ID', (_message.Message,), {
+  'DESCRIPTOR' : _ID,
+  '__module__' : 'proto.book_pb2'
+  # @@protoc_insertion_point(class_scope:book.ID)
+  })
+_sym_db.RegisterMessage(ID)
 
 BookListRequest = _reflection.GeneratedProtocolMessageType('BookListRequest', (_message.Message,), {
   'DESCRIPTOR' : _BOOKLISTREQUEST,
@@ -206,15 +252,15 @@ _BOOKCONTROLLER = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=223,
-  serialized_end=515,
+  serialized_start=238,
+  serialized_end=528,
   methods=[
   _descriptor.MethodDescriptor(
     name='UserBookList',
     full_name='book.BookController.UserBookList',
     index=0,
     containing_service=None,
-    input_type=proto_dot_user__pb2._USER,
+    input_type=_ID,
     output_type=_USERBOOKSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,

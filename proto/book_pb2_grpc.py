@@ -4,7 +4,6 @@ import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 from proto import book_pb2 as proto_dot_book__pb2
-from proto import user_pb2 as proto_dot_user__pb2
 
 
 class BookControllerStub(object):
@@ -18,7 +17,7 @@ class BookControllerStub(object):
         """
         self.UserBookList = channel.unary_unary(
                 '/book.BookController/UserBookList',
-                request_serializer=proto_dot_user__pb2.User.SerializeToString,
+                request_serializer=proto_dot_book__pb2.ID.SerializeToString,
                 response_deserializer=proto_dot_book__pb2.UserBooksResponse.FromString,
                 )
         self.List = channel.unary_stream(
@@ -92,7 +91,7 @@ def add_BookControllerServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'UserBookList': grpc.unary_unary_rpc_method_handler(
                     servicer.UserBookList,
-                    request_deserializer=proto_dot_user__pb2.User.FromString,
+                    request_deserializer=proto_dot_book__pb2.ID.FromString,
                     response_serializer=proto_dot_book__pb2.UserBooksResponse.SerializeToString,
             ),
             'List': grpc.unary_stream_rpc_method_handler(
@@ -142,7 +141,7 @@ class BookController(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/book.BookController/UserBookList',
-            proto_dot_user__pb2.User.SerializeToString,
+            proto_dot_book__pb2.ID.SerializeToString,
             proto_dot_book__pb2.UserBooksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
