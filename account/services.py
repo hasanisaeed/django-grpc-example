@@ -25,28 +25,27 @@ class BookService(generics.ModelService):
     lookup_field = 'id'
     queryset = Book.objects.all()
     serializer_class = BookProtoSerializer
+    permission_class = (IsAuthenticated,)
 
-    # def __new__(cls, *args, **kwargs):
-    #     if hasattr(cls, 'permission_class'):
-    #         for i in getattr(cls, 'permission_class'):
-    #             print(i())
-    #         permissions = [permission() for permission in getattr(cls, 'permission_class')]
-    #         print(permissions)
-    #     return super(cls.__class__, cls).__new__(cls, *args, **kwargs)
-    #
-    # @classmethod
-    # def as_servicer(cls, **kwargs):
-    #     from functools import update_wrapper
-    #     update_wrapper(BookService, cls, updated=())
-    #     return super(BookService, cls).as_servicer(**kwargs)
+    def __new__(cls, *args, **kwargs):
+        if hasattr(cls, 'permission_class'):
+            permissions = [permission() for permission in getattr(cls, 'permission_class')]
+            if not all(permissions):
+                raise ValueError(grpc.StatusCode.PERMISSION_DENIED)
+        return super(cls.__class__, cls).__new__(cls, *args, **kwargs)
+
+    @classmethod
+    def as_servicer(cls, **kwargs):
+        servicer = super(BookService, cls).as_servicer(**kwargs)
+        return servicer
 
     def UserBookList(self, request, context):
-        # auth = IsAuthenticated(UserBooksResponse,
-        #                        jwt_key=JWT_SECRET,
-        #                        permission_admin=True)
-        # x = auth.do_authentication(context)
-        # print(f'>> AUTH: {x}')
-        pass
+        auth = IsAuthenticated()
+        x = auth.has_permission(request, context)
+        if not x:
+            raise ValueError(grpc.StatusCode.UNAUTHENTICATED)
+        print(f'>> AUTH: {x}')
+        print(request)
 
     def Retrieve(self, request, context):
         print(request)
