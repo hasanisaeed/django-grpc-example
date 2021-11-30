@@ -26,19 +26,19 @@ class BookService(generics.ModelService):
     queryset = Book.objects.all()
     serializer_class = BookProtoSerializer
 
-    def __new__(cls, *args, **kwargs):
-        if hasattr(cls, 'permission_class'):
-            for i in getattr(cls, 'permission_class'):
-                print(i())
-            permissions = [permission() for permission in getattr(cls, 'permission_class')]
-            print(permissions)
-        return super(cls.__class__, cls).__new__(cls, *args, **kwargs)
-
-    @classmethod
-    def as_servicer(cls, **kwargs):
-        from functools import update_wrapper
-        update_wrapper(BookService, cls, updated=())
-        return super(BookService, cls).as_servicer(**kwargs)
+    # def __new__(cls, *args, **kwargs):
+    #     if hasattr(cls, 'permission_class'):
+    #         for i in getattr(cls, 'permission_class'):
+    #             print(i())
+    #         permissions = [permission() for permission in getattr(cls, 'permission_class')]
+    #         print(permissions)
+    #     return super(cls.__class__, cls).__new__(cls, *args, **kwargs)
+    #
+    # @classmethod
+    # def as_servicer(cls, **kwargs):
+    #     from functools import update_wrapper
+    #     update_wrapper(BookService, cls, updated=())
+    #     return super(BookService, cls).as_servicer(**kwargs)
 
     def UserBookList(self, request, context):
         # auth = IsAuthenticated(UserBooksResponse,
