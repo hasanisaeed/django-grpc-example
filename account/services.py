@@ -2,17 +2,13 @@ import datetime
 
 import grpc
 import jwt
-from django.conf.global_settings import SECRET_KEY
-from django.db.models import QuerySet
-from django.utils.decorators import classonlymethod
-from django_grpc_framework import generics
 from rest_framework_simplejwt.views import TokenObtainPairView
+import ryca_django_grpc.generics as generics
 
 from account.authenticate import IsAuthenticated
 from account.models import Book, User
-from account.serializers import UserProtoSerializer, BookProtoSerializer, LoginUserPairSerializer
+from account.serializers import UserProtoSerializer, BookProtoSerializer
 from proto import auth_pb2
-from proto.book_pb2 import UserBooksResponse
 from quickstart.settings import TOKEN_EXPIRATION, JWT_SECRET
 
 
@@ -25,27 +21,16 @@ class BookService(generics.ModelService):
     lookup_field = 'id'
     queryset = Book.objects.all()
     serializer_class = BookProtoSerializer
-    permission_class = (IsAuthenticated,)
-
-    def __new__(cls, *args, **kwargs):
-        if hasattr(cls, 'permission_class'):
-            permissions = [permission() for permission in getattr(cls, 'permission_class')]
-            if not all(permissions):
-                raise ValueError(grpc.StatusCode.PERMISSION_DENIED)
-        return super(cls.__class__, cls).__new__(cls, *args, **kwargs)
-
-    @classmethod
-    def as_servicer(cls, **kwargs):
-        servicer = super(BookService, cls).as_servicer(**kwargs)
-        return servicer
+    permission_classes = (IsAuthenticated,)
 
     def UserBookList(self, request, context):
-        auth = IsAuthenticated()
-        x = auth.has_permission(request, context)
-        if not x:
-            raise ValueError(grpc.StatusCode.UNAUTHENTICATED)
-        print(f'>> AUTH: {x}')
-        print(request)
+        # auth = IsAuthenticated()
+        # x = auth.has_permission(request, context)
+        # if not x:
+        #     raise ValueError(grpc.StatusCode.UNAUTHENTICATED)
+        # print(f'>> AUTH: {x}')
+        # print(request)
+        print('>>>>> <<<<<<')
 
     def Retrieve(self, request, context):
         print(request)
@@ -61,7 +46,7 @@ def generate_token(user):
                  'user_id': user.id
                  }
     return jwt.encode({'user_info': user_info,
-                       'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=1)  # TOKEN_EXPIRATION)
+                       'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=TOKEN_EXPIRATION)
                        }, JWT_SECRET, algorithm='HS256')
 
 

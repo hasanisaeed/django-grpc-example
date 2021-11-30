@@ -1,5 +1,4 @@
-from django_grpc_framework import proto_serializers
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from ryca_django_grpc import proto_serializers
 
 from account.models import Book, User
 from proto import user_pb2, book_pb2
@@ -17,13 +16,3 @@ class BookProtoSerializer(proto_serializers.ModelProtoSerializer):
         model = Book
         proto_class = book_pb2.Book
         fields = '__all__'
-
-
-class LoginUserPairSerializer(TokenObtainPairSerializer):
-    def validate(self, attrs):
-        data = super(LoginUserPairSerializer, self).validate(attrs)
-        output = {'user': self.user.phone,
-                  'id': self.user.id,
-                  'access_token': data['access'],
-                  'refresh_token': data['refresh'], }
-        return output
