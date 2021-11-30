@@ -1,13 +1,4 @@
 .idea/
 __pycache__/
-#auth.proto
-#auth_pb2.py
-#auth_pb2_grpc.py
-#book.proto
-#book_pb2.py
-#book_pb2_grpc.py
-#db.sqlite3
-#user.proto
-#user_pb2.py
-#user_pb2_grpc.py
 venv/
+test.py
