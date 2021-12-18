@@ -2,6 +2,7 @@ asgiref==3.4.1
 Django==3.2.9
 djangogrpcframework==0.2.1
 djangorestframework==3.12.4
+ryca-django-grpc==1.0.13
 grpcio==1.42.0
 grpcio-tools==1.42.0
 pkg_resources==0.0.0
